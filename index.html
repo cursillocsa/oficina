@@ -93,7 +93,10 @@ function buscar(){var q=sa(el('bq').value.trim()),r=el('bres');
  r.innerHTML=h.length?h.map(function(x){return '<div><span>'+esc(x[1])+'<br><small>'+esc(x[0])+' · '+esc(x[2]||'sin grupo')+' · '+esc(x[3]||'')+'</small></span>'+
   '<button class="mini" onclick="formulario(\''+esc(x[0])+'\')">Inscribir a este</button></div>';}).join(''):'<div class="ayuda" style="border:0">No aparece: es un alumno nuevo.</div>';}
 
-function campoHtml(c){var id='al'+c.j,lab='<label>'+esc(c.titulo)+(c.req?' <span class="req">*</span>':'')+'</label>';
+function campoHtml(c){
+ // número solo para montos (MATRÍCULA, MONTO, CUOTA); todo lo demás es texto, aunque la celda tenga formato de número
+ if(c.tipo==='number'&&!/MATR|MONTO|CUOTA/i.test(sa(c.titulo)))c.tipo='text';
+ var id='al'+c.j,lab='<label>'+esc(c.titulo)+(c.req?' <span class="req">*</span>':'')+'</label>';
  if(c.tipo==='check')return '<label style="font-weight:normal;margin-top:14px"><input type="checkbox" id="'+id+'">'+esc(c.titulo)+'</label>';
  if(c.tipo==='list')return lab+'<select id="'+id+'"><option value=""></option>'+c.ops.map(function(o){return '<option>'+esc(o)+'</option>';}).join('')+'</select>';
  if(c.tipo==='date')return lab+'<input type="date" id="'+id+'">';
