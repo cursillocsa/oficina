@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Oficina · Gauss</title>
+<title>Panel de secretaría · Gauss</title>
 <style>
 :root{--rojo:#c0392b;--negro:#201e1e;--fondo:#f3f5f9;--verde:#1b8a3a;--azul:#1f4e79}
 *{box-sizing:border-box}
@@ -35,11 +35,11 @@ input[type=checkbox]{width:auto;transform:scale(1.4);margin-right:8px}
 #msg{color:#666;text-align:center;margin-top:30px}
 .paso{display:inline-block;background:var(--azul);color:#fff;border-radius:50%;width:26px;height:26px;text-align:center;line-height:26px;margin-right:6px;font-size:14px}
 </style></head><body>
-<header><h1>🏫 Oficina <span>Gauss</span></h1><button id="volver" onclick="inicio()">⬅ Inicio</button></header>
+<header><h1>🏫 Panel de secretaría <span>Gauss</span></h1><button id="volver" onclick="inicio()">⬅ Inicio</button></header>
 <main><div id="app"></div><div id="msg">Cargando…</div></main>
 <script>
 var API='https://script.google.com/macros/s/AKfycbzPNqOlPMgP1lme__szBCxU4kzz7fSJ3PxLxUZu_CcywI5ftsESe6e7hL63z1Xp7M6U/exec';
-var PANEL_COBRO='https://cursillocsa.github.io/secretaria/';
+var PANEL_COBRO='https://cursillocsa.github.io/pagos/';
 var PIN='';try{PIN=localStorage.getItem('gaussPinSec')||'';}catch(e){}
 var L=null,FORM=null,EST={};
 function el(i){return document.getElementById(i);}
@@ -61,7 +61,7 @@ function falla(e,dest){var m=String(e.message||e);
  if(m.indexOf('PIN:')>=0){pedirPin(m.replace(/^.*PIN:\s*/,''));return true;}
  if(dest)el(dest).innerHTML='<div class="err">⚠️ '+esc(m)+'</div>';else msg('<span class="err">⚠️ '+esc(m)+'</span>');return false;}
 function pedirPin(m){el('volver').style.display='none';msg('');
- el('app').innerHTML='<div class="card" style="text-align:center"><h2>🔒 Oficina Gauss</h2><div style="margin-bottom:10px;color:'+(m.indexOf('Ingres')===0?'#555':'#c0392b')+'">'+esc(m)+'</div>'+
+ el('app').innerHTML='<div class="card" style="text-align:center"><h2>🔒 Panel de secretaría</h2><div style="margin-bottom:10px;color:'+(m.indexOf('Ingres')===0?'#555':'#c0392b')+'">'+esc(m)+'</div>'+
  '<input id="pin" type="password" placeholder="PIN" style="font-size:22px;width:180px;text-align:center"><br><button class="btn" style="width:auto;display:inline-block;padding:12px 34px" onclick="entrar()">Entrar</button></div>';
  var i=el('pin');i.focus();i.onkeydown=function(ev){if(ev.key==='Enter')entrar();};}
 function entrar(){PIN=el('pin').value.trim();guardado('gaussPinSec',PIN);cargar();}
